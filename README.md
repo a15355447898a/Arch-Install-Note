@@ -6,3 +6,4 @@
 
 在文件系统上面选择了lvm+btrfs+zfs的混合结构
 
+[![vWBrM4.jpg](https://s1.ax1x.com/2022/08/28/vWBrM4.jpg)](https://imgse.com/i/vWBrM4)
