@@ -145,9 +145,6 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc --localtime
 ```
 ### 本地化设置
-```bash
-locale-gen
-```
 移除  `/etc/locale.gen` 对应行前面的注释符号（＃）即可，建议选择带 UTF-8 的项
 ```bash
 /etc/locale.gen
@@ -160,6 +157,9 @@ zh_CN.UTF-8 UTF-8
 /etc/locale.conf
 ------------------------------
 LANG=en_US.UTF-8
+```
+```bash
+locale-gen
 ```
 ### 网络配置
 ```bash
