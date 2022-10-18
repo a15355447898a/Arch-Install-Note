@@ -117,22 +117,22 @@ genfstab -U /mnt > /mnt/etc/fstab
 ```bash
 /etc/fstab
 ------------------------------
-# /dev/mapper/SunWenBinArch-arch
+# /dev/mapper/Arch-arch
 UUID=65bcfa74-24a7-467f-bdec-e579d8686c51       /               btrfs           rw,relatime,space_cache=v2,subvolid=257,subvol=/@       0 0
 
-# /dev/mapper/SunWenBinArch-arch
+# /dev/mapper/Arch-arch
 UUID=65bcfa74-24a7-467f-bdec-e579d8686c51       /boot           btrfs           rw,relatime,space_cache=v2,subvolid=256,subvol=/@boot   0 0
 
 # /dev/sdb2
 UUID=543A-1903          /boot/efi       vfat            rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro   0 2
 
-# SunWenBinhomepool/home
-# SunWenBinhomepool/home        /home           zfs             rw,xattr,noacl  0 0
+# homepool/home
+# homepool/home        /home           zfs             rw,xattr,noacl  0 0
 
-# /dev/mapper/SunWenBinArch-arch
+# /dev/mapper/Arch-arch
 UUID=65bcfa74-24a7-467f-bdec-e579d8686c51       /.snapshots     btrfs           rw,relatime,space_cache=v2,subvolid=258,subvol=/@snapshots      0 0
 
-# /dev/mapper/SunWenBinArch-swap
+# /dev/mapper/Arch-swap
 UUID=c9ce44f4-8008-4edb-997e-266015dc494a       none            swap            defaults        0 0
 ```
 ### chroot
@@ -144,7 +144,18 @@ arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc --localtime
 ```
+==如果你是用一个安装好的arch系统来安装arch,可以一起把下列命令运行==
+
+```bash
+timedatectl set-ntp 1
+timedatectl set-timezone Asia/Shanghai
+timedatectl set-local-rtc 1
+pacman -S ntp
+systemctl enable ntpd
+```
+
 ### 本地化设置
+
 移除  `/etc/locale.gen` 对应行前面的注释符号（＃）即可，建议选择带 UTF-8 的项
 ```bash
 /etc/locale.gen
@@ -204,12 +215,12 @@ pacman -S intel-ucode amd-ucode
 --------------------
 GRUB_PRELOAD_MODULES="... btrfs"
 GRUB_DISABLE_OS_PROBER=false
-GRUB_CMDLINE_LINUX_DEFAULT="... root=/dev/mapper/SunWenBinArch-arch"
+GRUB_CMDLINE_LINUX_DEFAULT="... root=/dev/mapper/Arch-arch"
 ```
 安装grub
 ```bash
 grub-install --target=i386-pc /dev/sdb
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=SunWenBinArch --removable
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=nArch --removable
 ```
 然后生成  `grub.cfg`  文件
 ```bash
@@ -218,7 +229,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ### 退出 `chroot`环境，输入 `exit`或者按 `Ctrl+d`
 ### 重新设置zfs数据集挂载点
 ```bash
-zfs set mountpoint=/home SunWenBinhomepool/home
+zfs set mountpoint=/home homepool/home
 ```
 ### chroot
 ```bash
@@ -233,7 +244,7 @@ systemctl enable zfs-import-cache zfs-import.target zfs-mount zfs-zed zfs.target
 #### zfs
 ```bash
 zfs umount -a
-zpool export SunWenBinhomepool
+zpool export homepool
 ```
 #### 其他的
 ```bash
