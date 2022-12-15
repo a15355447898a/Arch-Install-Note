@@ -99,7 +99,7 @@ mount /dev/mapper/Arch-arch /mnt/.snapshots -o subvol=@snapshots
 ### 建立并挂载zfs文件系统
 ```bash
 zpool create -O compression=zstd -O mountpoint=none homepool /dev/mapper/Arch-homepool
-zfs create -o mountpoint=/mnt/home homepool/home
+zfs create -o dedup=on -o mountpoint=/mnt/home homepool/home
 ```
 ### 安装`pacstrap`(用一个安装好的arch系统来安装arch)
 ```bash
