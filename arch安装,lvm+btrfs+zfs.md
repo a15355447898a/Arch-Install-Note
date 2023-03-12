@@ -231,7 +231,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="... root=/dev/mapper/Arch-arch"
 安装grub
 ```bash
 grub-install --target=i386-pc /dev/sdb
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=nArch --removable
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=Arch --removable
 ```
 然后生成  `grub.cfg`  文件
 ```bash
